@@ -1,4 +1,5 @@
 # Farming Assistant
+This platform allows Seamless integration of features such as crop disease detection,fertilizer and crop recommendation features with detailed analysis. Multilingual feature for better understanding of information in native language. Weather prediction feature and news updates regarding agriculture.
 ## Home Page
 ![image](https://user-images.githubusercontent.com/65307083/225629691-f360c41b-8316-42ed-b236-70271e5a30cf.png)
 ## Disease Detection
