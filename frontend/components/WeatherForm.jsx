@@ -31,15 +31,17 @@ const WeatherForm = () => {
         tempr: Number(formData.tempr),
         air_pressure: Number(formData.air_pressure),
         wind_speed: Number(formData.wind_speed),
-        wind_direction: Number(formData.wind_direction),
-        relative_humidity: Number(formData.relative_humidity),
+        wind_direction: Number(formData.wind_direction), 
+        relative_humidity: Number(formData.relative_humidity), 
       })
       .then(function (response) {
         setOutput(response.data.data);
         console.log(output);
+        
       })
       .catch(function (error) {
         console.log(error);
+        
       });
     setFormData({
       tempr: 0,

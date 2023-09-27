@@ -17,7 +17,8 @@ export default function News() {
   useEffect(() => {
     const securePage = () => {
       if (status === "unauthenticated") {
-        signIn();
+        //signIn();
+        setLoading(false);
       } else {
         setLoading(false);
       }
@@ -41,7 +42,10 @@ export default function News() {
     <Layout title="News">
       <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
-        <AdminNavbar title={"News"} image={session.user.image} />
+        <AdminNavbar title={"News"} 
+        //image={session.user.image} 
+        image = "https://media.licdn.com/dms/image/D4D03AQGkPd66JuEbkA/profile-displayphoto-shrink_100_100/0/1682574046288?e=1701302400&v=beta&t=XtGEcI7EP9PSLPOl4xNp_1dOKevA-W8om5sfOOEX8ps"
+        />
         <div className="relative bg-blueGray-800 md:pt-32 pb-6 pt-12"></div>
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <div className="lg:flex mb-4 m-4 rounded mx-auto">

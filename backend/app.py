@@ -2,7 +2,7 @@ from __future__ import print_function
 import json
 from flask_cors import CORS
 from fpdf import FPDF
-from flask import Flask, request, render_template, Markup
+from flask import Flask, request, render_template, Markup,make_response
 import numpy as np
 import pickle
 import pandas as pd
@@ -269,6 +269,7 @@ def result2():
 
         # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
         api_key = os.getenv("OPEN_WEATHER_API_KEY")
+        
         url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
         response = requests.get(url)
         weather_data = response.json()
@@ -460,8 +461,9 @@ def forecast():
     api_key = "25a7391eb816518d0639ab3f83a31f42"
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
     response = requests.get(url)
+    print(response,"error")
     weather_data = response.json()
-
+    
     # Extract the necessary information from the API response
     forecast = []
     for item in weather_data["list"]:
@@ -489,6 +491,7 @@ def forecast():
 
     temperature = forecast[0]["temperature"]
     openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.api_key = "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"
     instructions = openai.Completion.create(
         model="text-davinci-003",
         prompt=f"aggricultural conditions based on {temperature} kelvin and {climate} climate",
