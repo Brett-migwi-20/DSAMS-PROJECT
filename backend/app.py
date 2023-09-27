@@ -153,18 +153,18 @@ disease_classes = [
     "Tomato___healthy",
 ]
 
-disease_model_path = "models/plant-disease-model.pth"
+disease_model_path = "./backend/models/plant-disease-model.pth"
 disease_model = ResNet9(3, len(disease_classes))
 disease_model.load_state_dict(
     torch.load(disease_model_path, map_location=torch.device("cpu"))
 )
 disease_model.eval()
 
-disease_info = pd.read_csv("disease_info.csv", encoding="cp1252")
-supplement_info = pd.read_csv("supplement_info.csv", encoding="cp1252")
+disease_info = pd.read_csv("./backend/disease_info.csv", encoding="cp1252")
+supplement_info = pd.read_csv("./backend/supplement_info.csv", encoding="cp1252")
 
 model = CNN.CNN(39)
-model.load_state_dict(torch.load("models/diseaseV2.pt"))
+model.load_state_dict(torch.load("./backend/models/diseaseV2.pt"))
 model.eval()
 
 
@@ -182,21 +182,21 @@ def prediction(image_path):
 # prediction function
 def CropPredictor(to_predict_list):
     to_predict = np.array([to_predict_list])
-    loaded_model = pickle.load(open("models/RandomForest.pkl", "rb"))
+    loaded_model = pickle.load(open("./backend/models/RandomForest.pkl", "rb"))
     result = loaded_model.predict(to_predict)
     return result[0]
 
 
 def FertilizerPredictor(to_predict_list):
     to_predict = np.array([to_predict_list])
-    loaded_model = pickle.load(open("models/classifier.pkl", "rb"))
+    loaded_model = pickle.load(open("./backend/models/classifier.pkl", "rb"))
     result = loaded_model.predict(to_predict)
     return result[0]
 
 
 def WeatherPredictor(to_predict_list):
     to_predict = np.array([to_predict_list])
-    loaded_model = pickle.load(open("models/weather.pkl", "rb"))
+    loaded_model = pickle.load(open("./backend/models/weather.pkl", "rb"))
     result = loaded_model.predict(to_predict)
     return result[0]
 
