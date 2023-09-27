@@ -2,7 +2,7 @@ from __future__ import print_function
 import json
 from flask_cors import CORS
 from fpdf import FPDF
-from flask import Flask, request, render_template, Markup,make_response
+from flask import Flask, jsonify, request, render_template, Markup,make_response
 import numpy as np
 import pickle
 import pandas as pd
@@ -458,14 +458,14 @@ def forecast():
 
     # Use the OpenWeatherMap API to get the weather forecast for the next 15 days
     # api_key = os.getenv("OPEN_WEATHER_API_KEY")
-    api_key = "25a7391eb816518d0639ab3f83a31f42"
-    url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"
+    api_key = "25a7391eb816518d0639ab3f83a31f42" 
+    url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}" 
     response = requests.get(url)
-    print(response,"error")
-    weather_data = response.json()
+    print(response,"error")  
+    weather_data = response.json() 
     
     # Extract the necessary information from the API response
-    forecast = []
+    forecast = [] 
     for item in weather_data["list"]:
         forecast.append(
             {
@@ -491,7 +491,23 @@ def forecast():
 
     temperature = forecast[0]["temperature"]
     openai.api_key = os.getenv("OPENAI_API_KEY")
-    openai.api_key = "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"
+    #openai.api_key = "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"
+    openai.api_key = "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"
+    response = ""
+    try:
+        url = f"http://api.openweathermap.org/data/2.5/forecast?q={location}&cnt=15&appid={api_key}"  # Replace with your API endpoint
+        response = requests.get(url)
+
+        # Check if the API request was successful (status code 200)
+        if response.status_code == 200:
+            print("Request Successful")
+        else:
+            # Handle non-successful API response (e.g., 404, 500, etc.)
+            return jsonify({'error': f'API returned status code {response.status_code}'}), response.status_code
+
+    except requests.exceptions.RequestException as e:
+        # Handle network-related errors (e.g., connection error, timeout)
+        return jsonify({'error': 'Failed to make API request'}), 500
     instructions = openai.Completion.create(
         model="text-davinci-003",
         prompt=f"aggricultural conditions based on {temperature} kelvin and {climate} climate",

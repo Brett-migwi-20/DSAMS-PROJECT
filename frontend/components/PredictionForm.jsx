@@ -40,6 +40,9 @@ const PredictionForm = () => {
       })
       .catch(function (error) {
         console.log(error);
+        alert('Invalid City Name')
+        setIsDisabled(false);
+        setIsLoading(false);
       });
     setFormData({
       location: formData.location,
